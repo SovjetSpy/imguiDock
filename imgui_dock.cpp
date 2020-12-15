@@ -495,8 +495,6 @@ struct DockContext
 
 		Begin("##Overlay",
 			NULL,
-			ImVec2(0, 0),
-			0.f,
 			ImGuiWindowFlags_Tooltip | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove |
 				ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings |
 				ImGuiWindowFlags_AlwaysAutoResize);
@@ -691,14 +689,14 @@ struct DockContext
 				SameLine(0, 15);
 
 				const char* text_end = FindRenderedTextEnd(dock_tab->label);
-				ImVec2 size(CalcTextSize(dock_tab->label, text_end).x, line_height);
+                /*ImVec2*/ size      = {CalcTextSize(dock_tab->label, text_end).x, line_height};
 				if (InvisibleButton(dock_tab->label, size))
 				{
 					dock_tab->setActive();
                     m_next_parent = dock_tab;
 				}
 
-				if (IsItemActive() && IsMouseDragging())
+				if (IsItemActive() && IsMouseDragging(ImGuiButtonFlags_MouseButtonLeft))
 				{
 					m_drag_offset = GetMousePos() - dock_tab->pos;
 					doUndock(*dock_tab);
@@ -989,8 +987,6 @@ struct DockContext
 			SetNextWindowSize(dock.size);
 			bool ret = Begin(label,
 				opened,
-				dock.size,
-				-1.0f,
 				ImGuiWindowFlags_NoCollapse /*| ImGuiWindowFlags_ShowBorders*/ | extra_flags); // ImGuiWindowFlags_ShowBorders not used in new version of ImGui
 			m_end_action = EndAction_End;
 			dock.pos = GetWindowPos();
