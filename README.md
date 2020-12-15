@@ -1,3 +1,5 @@
+forked so i can mantain it for my self. whuld be very awsome if it whould be updated some day
+
 ## imguiDock
 An addon of [imgui](https://github.com/ocornut/imgui/wiki) for support dock in the window
 
